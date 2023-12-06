@@ -1,16 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
-import slideFirst from "../../assets/images/png/slide-1.png";
-import slideSecond from "../../assets/images/png/slide-2.png";
-import slideThird from "../../assets/images/png/slide-3.png";
-import { FlexRow, CircleFilledIcon, CircleIcon } from "../../globalStyles";
-import ScrollDownButton from "./ScrollDownButton";
+import slides from "../../assets/images";
+import ScrollDownButton from "../buttons/ScrollDownButton";
+import CarouselDotsPagination from "./CarouselDotsPagination";
 
-const CarouselContainer = styled.div`
+const CarouselContainer = styled.section`
   width: 100%;
-  height: 740px;
+  height: 100%;
   position: relative;
-  margin-bottom: 103px;
 `;
 
 const SlidesWrapper = styled.div`
@@ -20,72 +17,48 @@ const SlidesWrapper = styled.div`
   overflow: hidden;
 `;
 
-const CarouselPagination = styled(FlexRow)`
-  position: absolute;
-  top: 413px;
-  left: 640px;
-  gap: 8px;
-
-  button {
-    background: transparent;
-    border: none;
-  }
-`;
-
-const CarouselSlide = styled.img.attrs(({ src, alt }) => ({
-  src: src,
-  alt: alt,
-}))<{ $active: boolean }>`
-  flex: 1;
-  position: absolute;
+const CarouselSlide = styled.img<{ $offsetIndex: number }>`
   width: 100%;
   height: 100%;
-  overflow: hidden;
-  opacity: 0;
-  transform: scale(0.8);
-  transition: 0.5s ease-in-out;
-
-  &.${(props) => (props.$active ? "active" : "")} {
-    opacity: 1;
-    transform: scale(1);
-  }
+  object-fit: cover;
+  flex-shrink: 0;
+  flex-grow: 0;
+  translate: ${(props) => `${-100 * props.$offsetIndex}%`};
+  transition: translate 2000ms ease-in-out;
 `;
 
-const BannerTitle = styled.h2<{ $fontSize?: string }>`
-  color: var(--color-text-inverted);
-  font-size: ${(props) => props.$fontSize || "48px"};
-  text-align: center;
-  font-weight: 800;
-  text-transform: uppercase;
-`;
+type PositioningProps = {
+  top?: string;
+  bottom?: string;
+  right?: string;
+  left?: string;
+};
 
-const SlideOverlay = styled.div`
+const PositionedElement = styled.div.attrs<PositioningProps>(
+  ({ top, bottom, right, left }) => ({
+    style: {
+      top: top || "auto",
+      bottom: bottom || "auto",
+      right: right || "auto",
+      left: left || "auto",
+    },
+  })
+)`
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  padding-top: 232px;
-  padding-left: 167px;
-  background-color: lightgray;
-  background-position: 50%;
-  background-size: cover;
-  background-repeat: no-repeat;
 `;
 
 const Carousel = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [slideIndex, setSlideIndex] = useState(0);
   const [autoPlay, setAutoPlay] = useState(true);
 
   const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    const slideRight = () => {
-      setCurrentSlide(
-        currentSlide === slides.length - 1 ? 0 : currentSlide + 1
-      );
-    };
+    function showNextSlide() {
+      setSlideIndex((index) => (index === slides.length - 1 ? 0 : index + 1));
+    }
 
-    timeout.current = autoPlay ? setTimeout(() => slideRight(), 2500) : null;
+    timeout.current = autoPlay ? setTimeout(showNextSlide, 5000) : null;
 
     return () => {
       timeout.current && clearTimeout(timeout.current);
@@ -101,42 +74,37 @@ const Carousel = () => {
     setAutoPlay(true);
   };
 
-  const slides = [
-    { id: 1, imagePath: slideFirst, description: "first" },
-    { id: 2, imagePath: slideSecond, description: "second" },
-    { id: 3, imagePath: slideThird, description: "third" },
-  ] as const;
-
   return (
     <CarouselContainer
       onMouseEnter={onCarouselEnter}
       onMouseLeave={onCarouselLeave}
+      aria-label="Banner Slider"
     >
+      {/* <a href="#slider-bottom" className="skip-link">
+        Skip Image Slider Controls
+      </a> */}
       <SlidesWrapper>
-        {slides.map((slide) => (
+        {slides.map((slide, index) => (
           <CarouselSlide
-            key={slide.id}
+            key={slide.imagePath}
             src={slide.imagePath}
-            alt={slide.description}
-            $active={currentSlide === slide.id}
+            alt={slide.alt}
+            $offsetIndex={slideIndex}
+            aria-hidden={index !== slideIndex}
           />
         ))}
       </SlidesWrapper>
-      <SlideOverlay>
-        <BannerTitle>The space is waiting for</BannerTitle>
-        <BannerTitle $fontSize="310px">you</BannerTitle>
+      <PositionedElement left="605px" bottom="33px">
         <ScrollDownButton />
-      </SlideOverlay>
-      <CarouselPagination>
-        {slides.map((slide) => (
-          <button
-            key={`btn-${slide.id}`}
-            onClick={() => setCurrentSlide(slide.id)}
-          >
-            {slide.id === currentSlide ? <CircleFilledIcon /> : <CircleIcon />}
-          </button>
-        ))}
-      </CarouselPagination>
+      </PositionedElement>
+      <PositionedElement top="413px" left="640px">
+        <CarouselDotsPagination
+          slidesCount={slides.length}
+          activeSlideIndex={slideIndex}
+          onClick={(index: number) => setSlideIndex(index)}
+        />
+      </PositionedElement>
+      {/* <div id="slider-bottom" /> */}
     </CarouselContainer>
   );
 };

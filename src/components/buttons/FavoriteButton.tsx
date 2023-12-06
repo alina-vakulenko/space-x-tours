@@ -1,25 +1,34 @@
 import styled from "styled-components";
-import heartIcon from "../../assets/images/svg/heart.svg";
 import { Button } from "../../globalStyles";
+import sprite from "../../assets/sprite.svg";
 
 const StyledButton = styled(Button)`
   width: 53px;
   height: 53px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: hsl(0, 0%, 93%);
-  background-image: url(${heartIcon});
-  background-repeat: no-repeat;
-  background-position: center;
-  transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out, fill 0.2s ease-in-out;
 
   &:active,
-  &:hover {
+  &:hover,
+  &:focus-visible {
     background-color: hsl(335, 71%, 54%);
-    color: var(--color-text-inverted);
+    & > * {
+      fill: var(--color-text-inverted);
+    }
   }
 `;
 
 const FavoriteButton = () => {
-  return <StyledButton title="Favorites"></StyledButton>;
+  return (
+    <StyledButton>
+      <svg aria-hidden width={24} height={24}>
+        <use href={sprite + "#heart"} />
+      </svg>
+    </StyledButton>
+  );
 };
 
 export default FavoriteButton;

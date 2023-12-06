@@ -39,13 +39,13 @@ const HeaderNavigation = () => {
           <StyledNavLink to="/">Home</StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to={"#"}>Tours</StyledNavLink>
+          <StyledNavLink to={""}>Tours</StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to={"#"}>About</StyledNavLink>
+          <StyledNavLink to={""}>About</StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to={"#"}>Help</StyledNavLink>
+          <StyledNavLink to={""}>Help</StyledNavLink>
         </li>
       </NavList>
     </nav>

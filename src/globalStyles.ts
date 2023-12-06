@@ -1,8 +1,4 @@
 import { styled } from "styled-components";
-import arrowDownIcon from "./assets/images/svg/arrow-down.svg";
-import arrowIcon from "./assets/images/svg/arrow.svg";
-import circleIcon from "./assets/images/svg/circle.svg";
-import circleFilledIcon from "./assets/images/svg/circle-filled.svg";
 
 export const FlexRow = styled.div`
   display: flex;
@@ -25,38 +21,15 @@ export const Button = styled.button`
   }
 `;
 
-export const ArrowDownIcon = styled.img.attrs(({ alt }) => ({
-  src: arrowDownIcon,
-  alt: alt,
-}))`
-  width: 40px;
-  height: 40px;
-`;
+export const ArrowButton = styled(Button)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background-color: #ececec;
 
-export const ArrowLeftIcon = styled.img.attrs(({ alt }) => ({
-  src: arrowIcon,
-  alt: alt,
-}))`
-  width: 24px;
-  height: 24px;
-`;
-
-export const ArrowRightIcon = styled(ArrowLeftIcon)`
-  transform: rotate(180deg);
-`;
-
-export const CircleIcon = styled.img.attrs(({ alt }) => ({
-  src: circleIcon,
-  alt: alt,
-}))`
-  width: 24px;
-  height: 24px;
-`;
-
-export const CircleFilledIcon = styled.img.attrs(({ alt }) => ({
-  src: circleFilledIcon,
-  alt: alt,
-}))`
-  width: 24px;
-  height: 24px;
+  svg > * {
+    padding: 5px 0px;
+    margin: 0 auto;
+  }
 `;
