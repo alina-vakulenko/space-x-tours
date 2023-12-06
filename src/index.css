@@ -9,7 +9,7 @@
 :root {
   --color-text-main: hsl(0, 0%, 12%);
   --color-text-inverted: hsl(0, 0%, 100%);
-  --color-text-muted: hsl(212, 22%, 43%);
+  --color-text-secondary: hsl(212, 22%, 43%);
   --color-text-button: hsl(0, 0%, 0%);
 }
 

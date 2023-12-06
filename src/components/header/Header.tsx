@@ -5,7 +5,8 @@ import HeaderLogo from "./HeaderLogo";
 import HeaderMenu from "./HeaderMenu";
 
 const StyledHeader = styled(FlexRow)`
-  max-width: 1440px;
+  position: fixed;
+  width: 100%;
   height: 80px;
   padding-inline: 80px;
   justify-content: space-between;
