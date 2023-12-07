@@ -10,13 +10,26 @@ const Controls = styled(FlexRow)`
 type CarouselControlsProps = {
   showNext: () => void;
   showPrev: () => void;
+  disabled?: boolean;
 };
 
-const CarouselControls = ({ showNext, showPrev }: CarouselControlsProps) => {
+const CarouselControls = ({
+  showNext,
+  showPrev,
+  disabled = false,
+}: CarouselControlsProps) => {
   return (
     <Controls>
-      <BackButton aria-label="View Previous" onClick={showPrev} />
-      <ForwardButton aria-label="View Next" onClick={showNext} />
+      <BackButton
+        aria-label="View Previous"
+        onClick={showPrev}
+        disabled={disabled}
+      />
+      <ForwardButton
+        aria-label="View Next"
+        onClick={showNext}
+        disabled={disabled}
+      />
     </Controls>
   );
 };

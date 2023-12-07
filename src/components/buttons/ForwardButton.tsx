@@ -10,11 +10,12 @@ const ArrowButtonRight = styled(ArrowButton)`
 
 type ForwardButtonProps = {
   onClick: () => void;
+  disabled?: boolean;
 };
 
-const ForwardButton = ({ onClick }: ForwardButtonProps) => {
+const ForwardButton = ({ onClick, disabled = false }: ForwardButtonProps) => {
   return (
-    <ArrowButtonRight onClick={onClick}>
+    <ArrowButtonRight onClick={onClick} disabled={disabled}>
       <svg aria-hidden width={24} height={24}>
         <use href={sprite + "#arrow"} />
       </svg>

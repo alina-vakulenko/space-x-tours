@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import { FullWidthImage, PositionedElement } from "../globalStyles";
-import { useCarousel } from "../hooks/useCarousel";
-import CarouselDotsPagination from "./carousel/CarouselDotsPagination";
-import CarouselSlidesWrapper from "./carousel/CarouselSlidesWrapper";
-import CarouselContainer from "./carousel/CarouselContainer";
+import { FullWidthImage, PositionedElement } from "../../globalStyles";
+import { useCarousel } from "../../hooks/useCarousel";
+import CarouselDotsPagination from "../carousel/CarouselDotsPagination";
+import CarouselSlidesWrapper from "../carousel/CarouselSlidesWrapper";
+import CarouselContainer from "../carousel/CarouselContainer";
 
 const CarouselSlide = styled(FullWidthImage)<{ $offsetIndex: number }>`
   translate: ${(props) => `${-100 * props.$offsetIndex}%`};

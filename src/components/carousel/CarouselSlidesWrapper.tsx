@@ -1,11 +1,11 @@
 import { ReactNode } from "react";
 import styled from "styled-components";
+import { FlexRow } from "../../globalStyles";
 
-const SlidesWrapper = styled.div<{ $gap?: string }>`
+const SlidesWrapper = styled(FlexRow)<{ $gap?: string }>`
   width: 100%;
   height: 100%;
-  display: flex;
-  gap: ${(props) => (props.$gap ? props.$gap : 0)}
+  gap: ${(props) => (props.$gap ? props.$gap : 0)};
   overflow: hidden;
 `;
 

@@ -1,11 +1,11 @@
-import Banner from "../components/banner/Banner";
-import TourCardsCarousel from "../components/TourCardsCarousel";
+import { Banner } from "../components/banner";
+import { TourCards } from "../components/tour-cards";
 
 const Home = () => {
   return (
     <>
       <Banner />
-      <TourCardsCarousel />
+      <TourCards />
     </>
   );
 };

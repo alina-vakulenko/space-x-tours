@@ -3,7 +3,7 @@ import images from "../../assets/images";
 import { PositionedElement } from "../../globalStyles";
 import BannerWrapper from "./BannerWrapper";
 import ScrollDownButton from "../buttons/ScrollDownButton";
-import BannerCarousel from "../BannerCarousel";
+import BannerCarousel from "./BannerCarousel";
 
 const BannerTitle = styled.h2<{ $fontSize?: string }>`
   color: var(--color-text-inverted);

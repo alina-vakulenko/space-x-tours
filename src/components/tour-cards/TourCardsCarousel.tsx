@@ -1,14 +1,14 @@
 import { useQuery } from "@apollo/client";
 import styled from "styled-components";
-import images from "../assets/images";
-import { FlexRow, PositionedElement } from "../globalStyles";
-import { GET_TOURS } from "../apollo/queries";
-import { useCarousel } from "../hooks/useCarousel";
-import CarouselContainer from "./carousel/CarouselContainer";
-import CarouselControls from "./carousel/CarouselControls";
-import CarouselSlidesWrapper from "./carousel/CarouselSlidesWrapper";
-import TourCard from "./tour-card/TourCard";
-import CarouselDotsPagination from "./carousel/CarouselDotsPagination";
+import images from "../../assets/images";
+import { FlexRow, PositionedElement } from "../../globalStyles";
+import { GET_TOURS } from "../../apollo/queries";
+import { useCarousel } from "../../hooks/useCarousel";
+import CarouselContainer from "../carousel/CarouselContainer";
+import CarouselControls from "../carousel/CarouselControls";
+import CarouselSlidesWrapper from "../carousel/CarouselSlidesWrapper";
+import TourCard from "./TourCard";
+import CarouselDotsPagination from "../carousel/CarouselDotsPagination";
 
 const Section = styled.section`
   padding-inline: 80px;
@@ -28,7 +28,7 @@ const CarouselTitle = styled.h1`
 `;
 
 const TourCardsCarousel = () => {
-  const { data } = useQuery(GET_TOURS);
+  const { data, loading, error } = useQuery(GET_TOURS);
   const tours = data?.tours || [];
 
   const { slideIndex, selectSlide, showNext, showPrev } = useCarousel({
@@ -40,20 +40,27 @@ const TourCardsCarousel = () => {
     <Section>
       <SectionHeader as="header">
         <CarouselTitle>popular tours</CarouselTitle>
-        <CarouselControls showNext={showNext} showPrev={showPrev} />
+        <CarouselControls
+          showNext={showNext}
+          showPrev={showPrev}
+          disabled={Boolean(error)}
+        />
       </SectionHeader>
       <CarouselContainer>
         <CarouselSlidesWrapper gap="24px">
-          {tours.map((tour, index) => (
-            <TourCard
-              key={tour?.id}
-              card={{
-                ...tour,
-                imagePath: images[index % images.length].imagePath,
-              }}
-              actions={["buy", "addToFavourite"]}
-            />
-          ))}
+          {loading && <p>loading...</p>}
+          {!loading &&
+            !error &&
+            tours.map((tour, index) => (
+              <TourCard
+                key={tour?.id}
+                card={{
+                  ...tour,
+                  imagePath: images[index % images.length].imagePath,
+                }}
+                actions={["buy", "addToFavourite"]}
+              />
+            ))}
         </CarouselSlidesWrapper>
 
         <PositionedElement $centerX bottom="-64px">
