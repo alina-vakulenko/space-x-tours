@@ -6,6 +6,7 @@ import {
   createRoutesFromElements,
   Route,
 } from "react-router-dom";
+import { RecoilRoot } from "recoil";
 import { ApolloProvider } from "@apollo/client/react";
 import client from "./apollo/client";
 import Root from "./routes/root";
@@ -24,8 +25,10 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <ApolloProvider client={client}>
-      <RouterProvider router={router} />
-    </ApolloProvider>
+    <RecoilRoot>
+      <ApolloProvider client={client}>
+        <RouterProvider router={router} />
+      </ApolloProvider>
+    </RecoilRoot>
   </React.StrictMode>
 );

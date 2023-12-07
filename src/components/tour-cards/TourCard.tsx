@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { useRecoilState } from "recoil";
+import { favourites } from "../../state";
 import { FlexRow } from "../../globalStyles";
 import PrimaryButton from "../buttons/PrimaryButton";
 import FavoriteButton from "../buttons/FavoriteButton";
@@ -72,7 +74,9 @@ type TourCardProps = {
 };
 
 const TourCard = ({ card, actions }: TourCardProps) => {
+  const [favTours, setFavTours] = useRecoilState(favourites);
   if (!card) return;
+
   return (
     <Card key={card.id}>
       <CardImageContainer>
@@ -87,8 +91,16 @@ const TourCard = ({ card, actions }: TourCardProps) => {
           {actions.includes("buy") ? (
             <PrimaryButton variant="stretched">buy</PrimaryButton>
           ) : null}
-          {actions.includes("addToFavourite") ? <FavoriteButton /> : null}
-          {actions.includes("delete") ? <DeleteButton /> : null}
+          {actions.includes("addToFavourite") ? (
+            <FavoriteButton onClick={() => setFavTours([...favTours, card])} />
+          ) : null}
+          {actions.includes("delete") ? (
+            <DeleteButton
+              onClick={() =>
+                setFavTours(favTours.filter((tour) => tour.id !== card.id))
+              }
+            />
+          ) : null}
         </CardActions>
       </CardContent>
     </Card>
