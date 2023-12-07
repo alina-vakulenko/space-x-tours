@@ -9,20 +9,17 @@ const StyledButton = styled(IconButton)`
   &:hover,
   &:focus-visible {
     background-color: hsl(335, 71%, 54%);
-    svg {
-      fill: var(--color-text-inverted);
-    }
   }
 `;
 
-const FavoriteButton = () => {
+const DeleteButton = () => {
   return (
     <StyledButton>
       <svg aria-hidden width={24} height={24}>
-        <use href={sprite + "#heart"} />
+        <use href={sprite + "#delete"} />
       </svg>
     </StyledButton>
   );
 };
 
-export default FavoriteButton;
+export default DeleteButton;

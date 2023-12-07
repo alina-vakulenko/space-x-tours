@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { FlexRow } from "../../globalStyles";
 import PrimaryButton from "../buttons/PrimaryButton";
 import FavoriteButton from "../buttons/FavoriteButton";
+import DeleteButton from "../buttons/DeleteButton";
 
 const Card = styled.article`
   display: flex;
@@ -67,9 +68,10 @@ type TourCardProps = {
     subtitle?: string | null | undefined;
     imagePath: string;
   } | null;
+  actions: Array<"buy" | "addToFavourite" | "delete">;
 };
 
-const TourCard = ({ card }: TourCardProps) => {
+const TourCard = ({ card, actions }: TourCardProps) => {
   if (!card) return;
   return (
     <Card key={card.id}>
@@ -82,8 +84,11 @@ const TourCard = ({ card }: TourCardProps) => {
           <CardSubTitle>{card.subtitle}</CardSubTitle>
         </CardTitleWrapper>
         <CardActions>
-          <PrimaryButton variant="stretched">buy</PrimaryButton>
-          <FavoriteButton />
+          {actions.includes("buy") ? (
+            <PrimaryButton variant="stretched">buy</PrimaryButton>
+          ) : null}
+          {actions.includes("addToFavourite") ? <FavoriteButton /> : null}
+          {actions.includes("delete") ? <DeleteButton /> : null}
         </CardActions>
       </CardContent>
     </Card>

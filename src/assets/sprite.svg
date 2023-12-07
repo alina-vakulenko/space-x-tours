@@ -15,14 +15,14 @@
 
 <symbol width="24" height="24" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="circle">
 <g>
-<circle cx="12" cy="12" r="11.5" stroke="white"></circle>
+<circle cx="12" cy="12" r="11.5"></circle>
 </g>
 </symbol>
 
 <symbol width="24" height="24" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="circle-with-dot">
 <g>
-<circle cx="12" cy="12" r="6" fill="white"></circle>
-<circle cx="12" cy="12" r="11.5" stroke="white"></circle>
+<circle cx="12" cy="12" r="6"></circle>
+<circle cx="12" cy="12" r="11.5"></circle>
 </g>
 </symbol>
 

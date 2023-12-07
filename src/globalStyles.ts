@@ -59,3 +59,21 @@ export const PositionedElement = styled.div.attrs<PositioningProps>(
       props.$centerY ? "-50%" : 0
     })`};
 `;
+
+export const IconButton = styled(Button)<{ $size?: "string" }>`
+  width: ${(props) => (props.$size ? props.$size : "53px")};
+  height: ${(props) => (props.$size ? props.$size : "53px")};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: hsl(0, 0%, 93%);
+  transition: all 0.2s ease-in-out;
+`;
+
+export const FullWidthImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  flex-shrink: 0;
+  flex-grow: 0;
+`;

@@ -13,8 +13,8 @@ const StyledButton = styled(Button)`
     scale: 1.2;
   }
 
-  & > * {
-    stroke: var(--color-text-inverted);
+  svg > * {
+    stroke: currentColor;
     fill: transparent;
   }
 `;
