@@ -41,6 +41,7 @@ export const PositionedElement = styled.div<{
   $right?: string;
   $centerX?: boolean;
   $centerY?: boolean;
+  $zIndex?: number;
 }>`
   position: absolute;
   top: ${(props) =>
@@ -50,9 +51,12 @@ export const PositionedElement = styled.div<{
   bottom: ${(props) => (props.$bottom ? props.$bottom : "auto")};
   right: ${(props) => (props.$right ? props.$right : "auto")};
   transform: ${(props) =>
-    `translate(${props.$centerX ? "-50%" : 0}, ${
-      props.$centerY ? "-50%" : 0
-    })`};
+    props.$centerX || props.$centerY
+      ? `translate(${props.$centerX ? "-50%" : 0}, ${
+          props.$centerY ? "-50%" : 0
+        })`
+      : "none"};
+  z-index: ${(props) => (props.$zIndex !== undefined ? props.$zIndex : "auto")};
 `;
 
 export const styledIconButton = css`
@@ -84,4 +88,5 @@ export const BannerTitle = styled.h2<{ $fontSize?: string }>`
   text-align: center;
   font-weight: 800;
   text-transform: uppercase;
+  word-wrap: no-wrap;
 `;

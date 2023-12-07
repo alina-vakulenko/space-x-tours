@@ -4,7 +4,7 @@ const StyledButton = styled.button`
   background-color: transparent;
   border: none;
   color: #556b84;
-  font-family: Lato;
+  font-family: "Lato", sans-serif;
   font-size: 24px;
   font-weight: 300;
   text-transform: lowercase;

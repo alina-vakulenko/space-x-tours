@@ -17,7 +17,7 @@ const StyledNavlink = styled(NavLink)`
   &.active,
   &:hover,
   &:focus-visible {
-    background-color: hsl(335, 71%, 54%);
+    background-color: var(--color-accent);
     svg {
       fill: var(--color-text-inverted);
     }

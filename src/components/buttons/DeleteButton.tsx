@@ -8,7 +8,7 @@ const StyledButton = styled(IconButton)`
   &:active,
   &:hover,
   &:focus-visible {
-    background-color: hsl(335, 71%, 54%);
+    background-color: var(--color-accent);
   }
 `;
 
