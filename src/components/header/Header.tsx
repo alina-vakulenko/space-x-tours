@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { FlexRow } from "../../globalStyles";
-import HeaderNavigation from "./HeaderNavigation";
 import HeaderLogo from "./HeaderLogo";
+import HeaderNavigation from "./HeaderNavigation";
 import HeaderMenu from "./HeaderMenu";
 
 const StyledHeader = styled(FlexRow)`

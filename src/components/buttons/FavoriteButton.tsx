@@ -9,13 +9,18 @@ const StyledButton = styled(Button)`
   align-items: center;
   justify-content: center;
   background-color: hsl(0, 0%, 93%);
-  transition: background-color 0.2s ease-in-out, fill 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 
   &:active,
   &:hover,
   &:focus-visible {
     background-color: hsl(335, 71%, 54%);
-    & > * {
+    svg {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       fill: var(--color-text-inverted);
     }
   }

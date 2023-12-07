@@ -62,7 +62,7 @@ const Carousel = () => {
           />
         ))}
       </SlidesWrapper>
-      <PositionedElement top="232px" left="167px">
+      <PositionedElement bottom="129px" left="167px">
         <BannerTitle>The space is waiting for</BannerTitle>
         <BannerTitle $fontSize="310px">you</BannerTitle>
       </PositionedElement>
