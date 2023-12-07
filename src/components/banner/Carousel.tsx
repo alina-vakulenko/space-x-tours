@@ -1,8 +1,9 @@
-import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import slides from "../../assets/images";
 import ScrollDownButton from "../buttons/ScrollDownButton";
 import CarouselDotsPagination from "./CarouselDotsPagination";
+import { useCarousel } from "../../hooks/useCarousel";
+import { PositionedElement } from "../../globalStyles";
 
 const CarouselContainer = styled.section`
   width: 100%;
@@ -27,57 +28,24 @@ const CarouselSlide = styled.img<{ $offsetIndex: number }>`
   transition: translate 2000ms ease-in-out;
 `;
 
-type PositioningProps = {
-  top?: string;
-  bottom?: string;
-  right?: string;
-  left?: string;
-};
-
-const PositionedElement = styled.div.attrs<PositioningProps>(
-  ({ top, bottom, right, left }) => ({
-    style: {
-      top: top || "auto",
-      bottom: bottom || "auto",
-      right: right || "auto",
-      left: left || "auto",
-    },
-  })
-)`
-  position: absolute;
+const BannerTitle = styled.h2<{ $fontSize?: string }>`
+  color: var(--color-text-inverted);
+  font-size: ${(props) => props.$fontSize || "48px"};
+  text-align: center;
+  font-weight: 800;
+  text-transform: uppercase;
 `;
 
 const Carousel = () => {
-  const [slideIndex, setSlideIndex] = useState(0);
-  const [autoPlay, setAutoPlay] = useState(true);
-
-  const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    function showNextSlide() {
-      setSlideIndex((index) => (index === slides.length - 1 ? 0 : index + 1));
-    }
-
-    timeout.current = autoPlay ? setTimeout(showNextSlide, 5000) : null;
-
-    return () => {
-      timeout.current && clearTimeout(timeout.current);
-    };
+  const { slideIndex, selectSlide, startAutoPlay, stopAutoPlay } = useCarousel({
+    totalCarouselItems: slides.length,
+    autoPlayOn: true,
   });
-
-  const onCarouselEnter = () => {
-    setAutoPlay(false);
-    timeout.current && clearTimeout(timeout.current);
-  };
-
-  const onCarouselLeave = () => {
-    setAutoPlay(true);
-  };
 
   return (
     <CarouselContainer
-      onMouseEnter={onCarouselEnter}
-      onMouseLeave={onCarouselLeave}
+      onMouseEnter={stopAutoPlay}
+      onMouseLeave={startAutoPlay}
       aria-label="Banner Slider"
     >
       {/* <a href="#slider-bottom" className="skip-link">
@@ -94,6 +62,10 @@ const Carousel = () => {
           />
         ))}
       </SlidesWrapper>
+      <PositionedElement top="232px" left="167px">
+        <BannerTitle>The space is waiting for</BannerTitle>
+        <BannerTitle $fontSize="310px">you</BannerTitle>
+      </PositionedElement>
       <PositionedElement left="605px" bottom="33px">
         <ScrollDownButton />
       </PositionedElement>
@@ -101,7 +73,7 @@ const Carousel = () => {
         <CarouselDotsPagination
           slidesCount={slides.length}
           activeSlideIndex={slideIndex}
-          onClick={(index: number) => setSlideIndex(index)}
+          onClick={selectSlide}
         />
       </PositionedElement>
       {/* <div id="slider-bottom" /> */}

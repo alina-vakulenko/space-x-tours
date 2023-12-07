@@ -8,9 +8,13 @@ const ArrowButtonRight = styled(ArrowButton)`
   }
 `;
 
-const ForwardButton = () => {
+type ForwardButtonProps = {
+  onClick: () => void;
+};
+
+const ForwardButton = ({ onClick }: ForwardButtonProps) => {
   return (
-    <ArrowButtonRight>
+    <ArrowButtonRight onClick={onClick}>
       <svg aria-hidden width={24} height={24}>
         <use href={sprite + "#arrow"} />
       </svg>

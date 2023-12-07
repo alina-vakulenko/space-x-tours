@@ -1,9 +1,13 @@
 import { ArrowButton } from "../../globalStyles";
 import sprite from "../../assets/sprite.svg";
 
-const BackButton = () => {
+type BackButtonProps = {
+  onClick: () => void;
+};
+
+const BackButton = ({ onClick }: BackButtonProps) => {
   return (
-    <ArrowButton>
+    <ArrowButton onClick={onClick}>
       <svg aria-hidden width={24} height={24}>
         <use href={sprite + "#arrow"} />
       </svg>

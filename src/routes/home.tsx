@@ -1,15 +1,15 @@
 import images from "../assets/images";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
+import { useQuery } from "@apollo/client";
 import styled from "styled-components";
-import { motion } from "framer-motion";
 import Carousel from "../components/banner/Carousel";
-import { FlexRow, Button } from "../globalStyles";
-import FavoriteButton from "../components/buttons/FavoriteButton";
-import PrimaryButton from "../components/buttons/PrimaryButton";
+import { FlexRow, PositionedElement } from "../globalStyles";
 import BackButton from "../components/buttons/BackButton";
 import ForwardButton from "../components/buttons/ForwardButton";
-import sprite from "../assets/sprite.svg";
 import CarouselDotsPagination from "../components/banner/CarouselDotsPagination";
+import { useCarousel } from "../hooks/useCarousel";
+import TourCard from "../components/tour-card/TourCard";
+import { GET_TOURS } from "../apollo/queries";
 
 const Section = styled.section`
   padding-inline: 79px 80px;
@@ -33,7 +33,7 @@ const CarouselControls = styled(FlexRow)`
   gap: 16px;
 `;
 
-const CarouselWrapper = styled(motion.div)`
+const CarouselWrapper = styled.div`
   gap: 24px;
   overflow: hidden;
 `;
@@ -42,95 +42,15 @@ const CarouselInnerWrapper = styled(FlexRow)`
   gap: 24px;
 `;
 
-const Card = styled(motion.article)`
-  min-width: 411px;
-  height: 572px;
-  border: 1px solid #d3eaff;
-`;
-
-const CardImageContainer = styled.div`
-  width: 100%;
-  height: 296px;
-`;
-
-const CardImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-`;
-
-const CardContent = styled.div`
-  padding: 32px 32px 24px;
-`;
-
-const CardTitleWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-`;
-
-const CardTitle = styled.h2`
-  text-align: center;
-  font-size: 24px;
-  font-weight: 700;
-  text-transform: uppercase;
-`;
-
-const CardSubTitle = styled.h3`
-  color: var(--color-text-secondary);
-  text-align: center;
-  font-family: Lato;
-  font-size: 24px;
-  font-weight: 300;
-`;
-const CardActions = styled(FlexRow)`
-  flex-grow: 1;
-  gap: 16px;
-`;
-
-const cards = [
-  {
-    id: "card1",
-    title: "extraordinary tour",
-    subtitle: "Lorem ipsum dolor sit amet consectetur adipiscing elit",
-    ...images[0],
-  },
-  {
-    id: "card2",
-    title: "extraordinary tour",
-    subtitle: "Lorem ipsum dolor sit amet consectetur adipiscing elit",
-    ...images[1],
-  },
-  {
-    id: "card3",
-    title: "extraordinary tour",
-    subtitle: "Lorem ipsum dolor sit amet consectetur adipiscing elit",
-    ...images[2],
-  },
-  {
-    id: "card4",
-    title: "extraordinary tour",
-    subtitle: "Lorem ipsum dolor sit amet consectetur adipiscing elit",
-    ...images[0],
-  },
-  {
-    id: "card5",
-    title: "extraordinary tour",
-    subtitle: "Lorem ipsum dolor sit amet consectetur adipiscing elit",
-    ...images[1],
-  },
-  {
-    id: "card6",
-    title: "extraordinary tour",
-    subtitle: "Lorem ipsum dolor sit amet consectetur adipiscing elit",
-    ...images[2],
-  },
-] as const;
-
 const Home = () => {
-  const [cardIndex, setCardIndex] = useState(0);
+  const { data } = useQuery(GET_TOURS);
   const [width, setWidth] = useState(0);
+
   const carousel = useRef<HTMLDivElement | null>(null);
+  const { slideIndex, selectSlide, showNext, showPrev } = useCarousel({
+    totalCarouselItems: data?.tours?.length || 1,
+    slidesPerView: 3,
+  });
 
   useEffect(() => {
     carousel.current &&
@@ -146,40 +66,30 @@ const Home = () => {
         <SectionHeader as="header">
           <CarouselTitle>popular tours</CarouselTitle>
           <CarouselControls>
-            <BackButton aria-label="View Previous Tour" />
-            <ForwardButton aria-label="View Next " />
+            <BackButton aria-label="View Previous Tour" onClick={showPrev} />
+            <ForwardButton aria-label="View Next " onClick={showNext} />
           </CarouselControls>
         </SectionHeader>
         <CarouselWrapper ref={carousel}>
-          <CarouselInnerWrapper
-            as={motion.div}
-            drag="x"
-            dragConstraints={{ right: 0, left: -width }}
-          >
-            {cards.map((card) => (
-              <Card key={card.id}>
-                <CardImageContainer>
-                  <CardImage src={card.imagePath} />
-                </CardImageContainer>
-                <CardContent>
-                  <CardTitleWrapper>
-                    <CardTitle>{card.title}</CardTitle>
-                    <CardSubTitle>{card.subtitle}</CardSubTitle>
-                  </CardTitleWrapper>
-                  <CardActions>
-                    <PrimaryButton variant="stretched">buy</PrimaryButton>
-                    <FavoriteButton />
-                  </CardActions>
-                </CardContent>
-              </Card>
-            ))}
+          <CarouselInnerWrapper>
+            {data &&
+              data.tours &&
+              data.tours.length > 0 &&
+              data.tours.map((tour) => (
+                <TourCard
+                  key={tour?.id}
+                  card={{ ...tour, imagePath: images[0].imagePath }}
+                />
+              ))}
           </CarouselInnerWrapper>
         </CarouselWrapper>
-        <CarouselDotsPagination
-          slidesCount={cards.length}
-          activeSlideIndex={cardIndex}
-          onClick={(index: number) => setCardIndex(index)}
-        />
+        <PositionedElement $centerX>
+          <CarouselDotsPagination
+            slidesCount={data?.tours?.length || 1}
+            activeSlideIndex={slideIndex}
+            onClick={selectSlide}
+          />
+        </PositionedElement>
       </Section>
     </div>
   );

@@ -33,3 +33,29 @@ export const ArrowButton = styled(Button)`
     margin: 0 auto;
   }
 `;
+
+type PositioningProps = {
+  top?: string;
+  bottom?: string;
+  right?: string;
+  left?: string;
+};
+
+export const PositionedElement = styled.div.attrs<PositioningProps>(
+  ({ top, bottom, right, left }) => ({
+    style: {
+      top: top || "auto",
+      bottom: bottom || "auto",
+      right: right || "auto",
+      left: left || "auto",
+    },
+  })
+)<{ $centerX?: boolean; $centerY?: boolean }>`
+  position: absolute;
+  top: ${(props) => (props.$centerY ? "50%" : 0)};
+  left: ${(props) => (props.$centerX ? "50%" : 0)};
+  transform: ${(props) =>
+    `translate(${props.$centerX ? "-50%" : 0}, ${
+      props.$centerY ? "-50%" : 0
+    })`};
+`;
