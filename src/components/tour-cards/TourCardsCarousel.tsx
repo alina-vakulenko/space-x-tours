@@ -9,6 +9,7 @@ import CarouselControls from "../carousel/CarouselControls";
 import CarouselSlidesWrapper from "../carousel/CarouselSlidesWrapper";
 import TourCard from "./TourCard";
 import CarouselDotsPagination from "../carousel/CarouselDotsPagination";
+import TourCardSkeleton from "./TourCardSkeleton";
 
 const Section = styled.section`
   padding-inline: 80px;
@@ -36,6 +37,10 @@ const TourCardsCarousel = () => {
     slidesPerView: 3,
   });
 
+  if (error) {
+    return <h3>Something went wrong...</h3>;
+  }
+
   return (
     <Section>
       <SectionHeader as="header">
@@ -48,22 +53,23 @@ const TourCardsCarousel = () => {
       </SectionHeader>
       <CarouselContainer>
         <CarouselSlidesWrapper gap="24px">
-          {loading && <p>loading...</p>}
-          {!loading &&
-            !error &&
-            tours.map((tour, index) => (
-              <TourCard
-                key={tour?.id}
-                card={{
-                  ...tour,
-                  imagePath: images[index % images.length].imagePath,
-                }}
-                actions={["buy", "addToFavourite"]}
-              />
-            ))}
+          {loading
+            ? Array.from({ length: 3 }).map((_, index) => (
+                <TourCardSkeleton key={index} />
+              ))
+            : tours.map((tour, index) => (
+                <TourCard
+                  key={tour?.id}
+                  card={{
+                    ...tour,
+                    imagePath: images[index % images.length].imagePath,
+                  }}
+                  actions={["buy", "addToFavourite"]}
+                />
+              ))}
         </CarouselSlidesWrapper>
 
-        <PositionedElement $centerX bottom="-64px">
+        <PositionedElement $centerX $bottom="-64px">
           <CarouselDotsPagination
             slidesCount={tours.length}
             activeSlideIndex={slideIndex}

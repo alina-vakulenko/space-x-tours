@@ -5,10 +5,8 @@ import HeaderNavigation from "./HeaderNavigation";
 import HeaderMenu from "./HeaderMenu";
 
 const StyledHeader = styled(FlexRow)`
-  position: fixed;
-  top: 0;
-  width: 100%;
-  max-width: inherit;
+  position: absolute;
+  inset: 0;
   height: 80px;
   padding-inline: 80px;
   justify-content: space-between;

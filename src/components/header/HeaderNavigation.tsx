@@ -15,7 +15,7 @@ const StyledNavLink = styled(NavLink)`
   transition: opacity 0.2s ease-in-out;
 
   &:hover {
-    opacity: 70%;
+    opacity: 60%;
   }
 
   &.active {
@@ -25,7 +25,7 @@ const StyledNavLink = styled(NavLink)`
       left: 0;
       content: "";
       height: 1px;
-      width: 50px;
+      width: 100%;
       background-color: var(--color-text-inverted);
     }
   }
@@ -39,13 +39,19 @@ const HeaderNavigation = () => {
           <StyledNavLink to="/">Home</StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to={""}>Tours</StyledNavLink>
+          <StyledNavLink as={"a"} to="#">
+            Tours
+          </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to={""}>About</StyledNavLink>
+          <StyledNavLink as={"a"} to="#">
+            About
+          </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to={""}>Help</StyledNavLink>
+          <StyledNavLink as={"a"} to="#">
+            Help
+          </StyledNavLink>
         </li>
       </NavList>
     </nav>

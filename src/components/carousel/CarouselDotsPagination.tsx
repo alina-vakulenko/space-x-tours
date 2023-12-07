@@ -10,12 +10,14 @@ type CarouselDotsPaginationProps = {
   slidesCount: number;
   activeSlideIndex: number;
   onClick: (index: number) => void;
+  color?: string;
 };
 
 const CarouselDotsPagination = ({
   slidesCount,
   activeSlideIndex,
   onClick,
+  color,
 }: CarouselDotsPaginationProps) => {
   return (
     <CarouselPagination>
@@ -24,6 +26,7 @@ const CarouselDotsPagination = ({
           key={`slide-${index}`}
           onClick={() => onClick(index)}
           active={index === activeSlideIndex}
+          color={color || "var(--color-text-main)"}
         />
       ))}
     </CarouselPagination>

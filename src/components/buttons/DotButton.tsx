@@ -2,11 +2,12 @@ import styled from "styled-components";
 import { Button } from "../../globalStyles";
 import sprite from "../../assets/sprite.svg";
 
-const StyledButton = styled(Button)`
+const StyledButton = styled(Button)<{ $color: string }>`
   width: 24px;
   height: 24px;
   border-radius: 50%;
   transition: scale 100ms ease-in-out;
+  color: ${(props) => props.$color};
 
   &:hover,
   &:focus-visible {
@@ -15,18 +16,19 @@ const StyledButton = styled(Button)`
 
   svg > * {
     stroke: currentColor;
-    fill: transparent;
+    fill: currentColor;
   }
 `;
 
 type DotButtonProps = {
   active: boolean;
   onClick: () => void;
+  color: string;
 };
 
-const DotButton = ({ active, onClick }: DotButtonProps) => {
+const DotButton = ({ active, onClick, color }: DotButtonProps) => {
   return (
-    <StyledButton onClick={onClick}>
+    <StyledButton onClick={onClick} $color={color}>
       {active ? (
         <svg aria-hidden width={24} height={24}>
           <use href={sprite + "#circle-with-dot"} />

@@ -14,7 +14,7 @@ export const useCarousel = ({
   const [slideIndex, setSlideIndex] = useState(0);
   const [autoPlay, setAutoPlay] = useState(autoPlayOn);
 
-  const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const interval = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const showNext = useCallback(() => {
     setSlideIndex(
@@ -33,16 +33,16 @@ export const useCarousel = ({
   useEffect(() => {
     if (!autoPlay) return;
 
-    timeout.current = setTimeout(showNext, 5000);
+    interval.current = setInterval(showNext, 5000);
 
     return () => {
-      timeout.current && clearTimeout(timeout.current);
+      interval.current && clearInterval(interval.current);
     };
   }, [autoPlay, slideIndex, totalCarouselItems, showNext]);
 
   const stopAutoPlay = () => {
     setAutoPlay(false);
-    timeout.current && clearTimeout(timeout.current);
+    interval.current && clearInterval(interval.current);
   };
 
   const startAutoPlay = () => {

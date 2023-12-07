@@ -1,4 +1,4 @@
-import { styled } from "styled-components";
+import { styled, css } from "styled-components";
 
 export const FlexRow = styled.div`
   display: flex;
@@ -34,39 +34,38 @@ export const ArrowButton = styled(Button)`
   }
 `;
 
-type PositioningProps = {
-  top?: string;
-  bottom?: string;
-  right?: string;
-  left?: string;
-};
-
-export const PositionedElement = styled.div.attrs<PositioningProps>(
-  ({ top, bottom, right, left }) => ({
-    style: {
-      top: top || "auto",
-      bottom: bottom || "auto",
-      right: right || "auto",
-      left: left || "auto",
-    },
-  })
-)<{ $centerX?: boolean; $centerY?: boolean }>`
+export const PositionedElement = styled.div<{
+  $top?: string;
+  $bottom?: string;
+  $left?: string;
+  $right?: string;
+  $centerX?: boolean;
+  $centerY?: boolean;
+}>`
   position: absolute;
-  top: ${(props) => (props.$centerY ? "50%" : 0)};
-  left: ${(props) => (props.$centerX ? "50%" : 0)};
+  top: ${(props) =>
+    props.$centerY ? "50%" : props.$top ? props.$top : "auto"};
+  left: ${(props) =>
+    props.$centerX ? "50%" : props.$left ? props.$left : "auto"};
+  bottom: ${(props) => (props.$bottom ? props.$bottom : "auto")};
+  right: ${(props) => (props.$right ? props.$right : "auto")};
   transform: ${(props) =>
     `translate(${props.$centerX ? "-50%" : 0}, ${
       props.$centerY ? "-50%" : 0
     })`};
 `;
 
-export const IconButton = styled(Button)<{ $size?: "string" }>`
-  width: ${(props) => (props.$size ? props.$size : "53px")};
-  height: ${(props) => (props.$size ? props.$size : "53px")};
+export const styledIconButton = css`
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: hsl(0, 0%, 93%);
+`;
+
+export const IconButton = styled(Button)<{ $size?: "string" }>`
+  width: ${(props) => (props.$size ? props.$size : "53px")};
+  height: ${(props) => (props.$size ? props.$size : "53px")};
+  ${styledIconButton}
   transition: all 0.2s ease-in-out;
 `;
 
@@ -74,6 +73,15 @@ export const FullWidthImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: top;
   flex-shrink: 0;
   flex-grow: 0;
+`;
+
+export const BannerTitle = styled.h2<{ $fontSize?: string }>`
+  color: var(--color-text-inverted);
+  font-size: ${(props) => props.$fontSize || "48px"};
+  text-align: center;
+  font-weight: 800;
+  text-transform: uppercase;
 `;

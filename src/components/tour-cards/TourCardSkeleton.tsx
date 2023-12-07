@@ -1,10 +1,6 @@
 import styled from "styled-components";
-import { useRecoilState } from "recoil";
-import { favourites } from "../../state";
 import { FlexRow, IconButton } from "../../globalStyles";
 import PrimaryButton from "../buttons/PrimaryButton";
-import DeleteButton from "../buttons/DeleteButton";
-import sprite from "../../assets/sprite.svg";
 
 const Card = styled.article`
   display: flex;
@@ -81,59 +77,22 @@ const StyledButton = styled(IconButton)<{ $isActive: boolean }>`
   }
 `;
 
-type TourCardProps = {
-  card: {
-    __typename?: "Rocket" | undefined;
-    id?: string | null | undefined;
-    title?: string | null | undefined;
-    subtitle?: string | null | undefined;
-    imagePath: string;
-  } | null;
-  actions: Array<"buy" | "addToFavourite" | "delete">;
-};
-
-const TourCard = ({ card, actions }: TourCardProps) => {
-  const [favTours, setFavTours] = useRecoilState(favourites);
-  if (!card) return;
-
-  const isFavorite = favTours.findIndex((tour) => tour.id === card.id) !== -1;
-
+const TourCardSkeleton = () => {
   return (
     <Card>
-      <CardImageContainer>
-        <CardImage src={card.imagePath} />
-      </CardImageContainer>
+      <CardImageContainer></CardImageContainer>
       <CardContent>
         <CardTitleWrapper>
-          <CardTitle>{card.title}</CardTitle>
-          <CardSubTitle>{card.subtitle}</CardSubTitle>
+          <CardTitle></CardTitle>
+          <CardSubTitle></CardSubTitle>
         </CardTitleWrapper>
         <CardActions>
-          {actions.includes("buy") ? (
-            <PrimaryButton variant="stretched">buy</PrimaryButton>
-          ) : null}
-          {actions.includes("addToFavourite") ? (
-            <StyledButton
-              disabled={isFavorite}
-              $isActive={isFavorite}
-              onClick={() => setFavTours([...favTours, card])}
-            >
-              <svg aria-hidden width={24} height={24}>
-                <use href={sprite + "#heart"} />
-              </svg>
-            </StyledButton>
-          ) : null}
-          {actions.includes("delete") ? (
-            <DeleteButton
-              onClick={() =>
-                setFavTours(favTours.filter((tour) => tour.id !== card.id))
-              }
-            />
-          ) : null}
+          <PrimaryButton variant="stretched">buy</PrimaryButton>
+          <StyledButton></StyledButton>
         </CardActions>
       </CardContent>
     </Card>
   );
 };
 
-export default TourCard;
+export default TourCardSkeleton;

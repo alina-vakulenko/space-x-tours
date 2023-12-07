@@ -40,11 +40,12 @@ const BannerCarousel = ({ images }: BannerCarouselProps) => {
         ))}
       </CarouselSlidesWrapper>
 
-      <PositionedElement top="413px" left="640px">
+      <PositionedElement $top="413px" $left="640px">
         <CarouselDotsPagination
           slidesCount={images.length}
           activeSlideIndex={slideIndex}
           onClick={selectSlide}
+          color="var(--color-text-inverted)"
         />
       </PositionedElement>
     </CarouselContainer>
