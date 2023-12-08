@@ -1,20 +1,15 @@
 import { useRecoilState } from "recoil";
+import styled from "styled-components";
 import { favourites } from "../state";
 import {
   BannerTitle,
+  Container,
   FullWidthImage,
   PositionedElement,
 } from "../globalStyles";
 import images from "../assets/images";
 import ClearAllButton from "../components/buttons/ClearAllButton";
-import TourCard from "../components/tour-cards/TourCard";
-import styled from "styled-components";
-
-const CardsGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(411px, 1fr));
-  gap: 24px;
-`;
+import TourCardsList from "../components/tour-cards/TourCardsList";
 
 const BannerWrapper = styled.div`
   position: relative;
@@ -23,9 +18,24 @@ const BannerWrapper = styled.div`
   margin-bottom: 64px;
 `;
 
-const Banner = styled(FullWidthImage)`
-  background: url(<path-to-image>), lightgray 50% / cover no-repeat;
-  object-position: top;
+const ImageOverlay = styled.div`
+  position: absolute;
+  inset: 0;
+  opacity: 0.64;
+  background: #1e1e1e;
+  z-index: 2;
+`;
+
+const ClearAllButtonWrapper = styled.div`
+  text-align: end;
+  margin-bottom: 40px;
+`;
+
+const Title = styled.h1`
+  font-size: 32px;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 40px;
 `;
 
 const Favorites = () => {
@@ -34,35 +44,29 @@ const Favorites = () => {
   return (
     <>
       <BannerWrapper>
-        <Banner src={images[2].imagePath} alt={images[2].alt} />
-        <PositionedElement $top="220px" $centerX>
+        <FullWidthImage src={images[2].imagePath} alt={images[2].alt} />
+
+        <ImageOverlay />
+
+        <PositionedElement $top="220px" $centerX $zIndex={3}>
           <BannerTitle>favourites</BannerTitle>
         </PositionedElement>
       </BannerWrapper>
-      <section
-        style={{
-          paddingInline: "80px",
-        }}
-      >
-        <div style={{ textAlign: "end", marginBottom: "40px" }}>
-          <ClearAllButton
-            onClick={() => setFavTours([])}
-            aria-label="Remove all toures from favourites"
-          />
-        </div>
-        <CardsGrid>
-          {favTours.length > 0 &&
-            favTours.map((card, index) => (
-              <TourCard
-                card={{
-                  ...card,
-                  imagePath: images[index % images.length].imagePath,
-                }}
-                actions={["buy", "delete"]}
-              />
-            ))}
-        </CardsGrid>
-      </section>
+
+      <Container>
+        {favTours.length > 0 ? (
+          <ClearAllButtonWrapper>
+            <ClearAllButton
+              onClick={() => setFavTours([])}
+              aria-label="Remove all toures from favourites"
+            />
+          </ClearAllButtonWrapper>
+        ) : (
+          <Title>Here will be tours you 🩷</Title>
+        )}
+
+        <TourCardsList tours={favTours} />
+      </Container>
     </>
   );
 };

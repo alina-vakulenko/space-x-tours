@@ -1,17 +1,24 @@
+import { useEffect } from "react";
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
-import { favourites } from "../../state";
-import { FlexRow, IconButton } from "../../globalStyles";
+import sprite from "../../assets/sprite.svg";
+import { Tour, favourites } from "../../state";
+import { FlexRow, styledIconButton } from "../../globalStyles";
 import PrimaryButton from "../buttons/PrimaryButton";
 import DeleteButton from "../buttons/DeleteButton";
-import sprite from "../../assets/sprite.svg";
 
-const Card = styled.article`
+const Card = styled.article<{ $offset?: number }>`
   display: flex;
   flex-direction: column;
-  width: 411px;
+  max-width: 411px;
+  min-width: 411px;
   height: 572px;
   border: 1px solid var(--color-border);
+  translate: ${(props) => (props.$offset ? `${-props.$offset}px` : 0)};
+
+  @media not (prefers-reduced-motion: reduce) {
+    transition: translate 500ms ease-in-out;
+  }
 `;
 
 const CardImageContainer = styled.div`
@@ -61,15 +68,19 @@ const CardActions = styled(FlexRow)`
   gap: 16px;
 `;
 
-const StyledButton = styled(IconButton)<{ $isActive: boolean }>`
+const StyledButton = styled.button<{ $isActive: boolean }>`
+  ${styledIconButton}
   background-color: ${(props) =>
     props.$isActive ? "var(--color-accent)" : "current"};
-  transition: all 0.2s ease-in-out;
+  svg {
+    fill: ${(props) =>
+      props.$isActive ? "var(--color-text-inverted)" : "current"};
+  }
 
   &:disabled {
     transform: none;
-    opacity: 60%;
   }
+
   &:active,
   &:hover,
   &:focus-visible {
@@ -81,32 +92,32 @@ const StyledButton = styled(IconButton)<{ $isActive: boolean }>`
 `;
 
 type TourCardProps = {
-  card: {
-    __typename?: "Rocket" | undefined;
-    id?: string | null | undefined;
-    title?: string | null | undefined;
-    subtitle?: string | null | undefined;
-    imagePath: string;
-  } | null;
+  card: Tour;
   actions: Array<"buy" | "addToFavourite" | "delete">;
+  offset?: number;
 };
 
-const TourCard = ({ card, actions }: TourCardProps) => {
+const TourCard = ({ card, actions, offset }: TourCardProps) => {
   const [favTours, setFavTours] = useRecoilState(favourites);
-  if (!card) return;
 
   const isFavorite = favTours.findIndex((tour) => tour.id === card.id) !== -1;
 
+  useEffect(() => {
+    localStorage.setItem("favTours", JSON.stringify(favTours));
+  }, [favTours]);
+
   return (
-    <Card>
+    <Card $offset={offset}>
       <CardImageContainer>
         <CardImage src={card.imagePath} />
       </CardImageContainer>
+
       <CardContent>
         <CardTitleWrapper>
           <CardTitle>{card.title}</CardTitle>
           <CardSubTitle>{card.subtitle}</CardSubTitle>
         </CardTitleWrapper>
+
         <CardActions>
           {actions.includes("buy") ? (
             <PrimaryButton variant="stretched">buy</PrimaryButton>
@@ -117,7 +128,7 @@ const TourCard = ({ card, actions }: TourCardProps) => {
               $isActive={isFavorite}
               onClick={() => setFavTours([...favTours, card])}
             >
-              <svg aria-hidden width={24} height={24}>
+              <svg aria-hidden width={21} height={19}>
                 <use href={sprite + "#heart"} />
               </svg>
             </StyledButton>

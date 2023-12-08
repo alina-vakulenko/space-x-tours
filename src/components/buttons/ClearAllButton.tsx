@@ -17,6 +17,7 @@ const StyledButton = styled.button`
 
 type ClearAllButtonProps = {
   onClick: () => void;
+  disabled?: boolean;
 };
 
 const ClearAllButton = ({ onClick }: ClearAllButtonProps) => {

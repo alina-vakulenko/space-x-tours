@@ -12,11 +12,7 @@ const StyledNavLink = styled(NavLink)`
   text-decoration: none;
   text-transform: uppercase;
   color: var(--color-text-inverted);
-  transition: opacity 0.2s ease-in-out;
-
-  &:hover {
-    opacity: 60%;
-  }
+  transition: color 150ms ease-in-out, background 150ms ease-in-out;
 
   &.active {
     &::after {
@@ -27,6 +23,16 @@ const StyledNavLink = styled(NavLink)`
       height: 1px;
       width: 100%;
       background-color: var(--color-text-inverted);
+    }
+  }
+
+  &:hover {
+    color: var(--color-accent);
+
+    &.active {
+      &::after {
+        background-color: var(--color-accent);
+      }
     }
   }
 `;

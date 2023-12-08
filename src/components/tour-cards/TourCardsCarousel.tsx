@@ -1,14 +1,18 @@
+import { useRef, useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "styled-components";
 import images from "../../assets/images";
-import { FlexRow, PositionedElement } from "../../globalStyles";
+import {
+  CarouselSlidesWrapper,
+  FlexRow,
+  PositionedElement,
+} from "../../globalStyles";
 import { GET_TOURS } from "../../apollo/queries";
 import { useCarousel } from "../../hooks/useCarousel";
 import CarouselContainer from "../carousel/CarouselContainer";
 import CarouselControls from "../carousel/CarouselControls";
-import CarouselSlidesWrapper from "../carousel/CarouselSlidesWrapper";
-import TourCard from "./TourCard";
 import CarouselDotsPagination from "../carousel/CarouselDotsPagination";
+import TourCard from "./TourCard";
 import TourCardSkeleton from "./TourCardSkeleton";
 
 const Section = styled.section`
@@ -32,13 +36,29 @@ const TourCardsCarousel = () => {
   const { data, loading, error } = useQuery(GET_TOURS);
   const tours = data?.tours || [];
 
+  const [offsetWidth, setOffsetWidth] = useState(0);
+  const carouselRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (carouselRef.current) {
+      const card = carouselRef.current.querySelector("article");
+      const cardWidth = card?.clientWidth || 0;
+      const scrollWidth = carouselRef.current.scrollWidth;
+      const gap = (scrollWidth - tours.length * cardWidth) / tours.length;
+      setOffsetWidth(cardWidth + gap);
+    }
+  }, [carouselRef, tours.length]);
+
   const { slideIndex, selectSlide, showNext, showPrev } = useCarousel({
     totalCarouselItems: tours.length,
-    slidesPerView: 3,
   });
 
   if (error) {
-    return <h3>Something went wrong...</h3>;
+    return (
+      <Section>
+        <CarouselTitle>Something went wrong...</CarouselTitle>
+      </Section>
+    );
   }
 
   return (
@@ -48,23 +68,27 @@ const TourCardsCarousel = () => {
         <CarouselControls
           showNext={showNext}
           showPrev={showPrev}
-          disabled={Boolean(error)}
+          disabled={Boolean(error) || tours.length === 0}
         />
       </SectionHeader>
       <CarouselContainer>
-        <CarouselSlidesWrapper gap="24px">
+        <CarouselSlidesWrapper $gap="24px" ref={carouselRef}>
           {loading
             ? Array.from({ length: 3 }).map((_, index) => (
                 <TourCardSkeleton key={index} />
               ))
-            : tours.map((tour, index) => (
+            : tours.length > 0 &&
+              tours.map((tour, index) => (
                 <TourCard
-                  key={tour?.id}
+                  key={tour?.id || index}
                   card={{
-                    ...tour,
+                    id: tour?.id || String(index),
+                    title: tour?.title || "",
+                    subtitle: tour?.subtitle || "",
                     imagePath: images[index % images.length].imagePath,
                   }}
                   actions={["buy", "addToFavourite"]}
+                  offset={slideIndex * offsetWidth}
                 />
               ))}
         </CarouselSlidesWrapper>

@@ -1,14 +1,15 @@
 import { atom } from "recoil";
 
-type Tour = {
-  __typename?: "Rocket" | undefined;
-  id?: string | null | undefined;
-  title?: string | null | undefined;
-  subtitle?: string | null | undefined;
+export type Tour = {
+  id: string;
+  title: string;
+  subtitle: string;
   imagePath: string;
 };
 
+const savedTours = localStorage.getItem("favTours");
+
 export const favourites = atom({
   key: "favourites",
-  default: [] as Tour[],
+  default: savedTours ? (JSON.parse(savedTours) as Tour[]) : ([] as Tour[]),
 });

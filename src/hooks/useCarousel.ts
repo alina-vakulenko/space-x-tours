@@ -2,14 +2,16 @@ import { useEffect, useState, useRef, useCallback } from "react";
 
 type CarouselSettings = {
   totalCarouselItems: number;
-  slidesPerView?: number;
+  shiftBy?: number;
   autoPlayOn?: boolean;
+  autoplayInterval?: number;
 };
 
 export const useCarousel = ({
   totalCarouselItems,
-  slidesPerView = 1,
+  shiftBy = 1,
   autoPlayOn = false,
+  autoplayInterval = 5000,
 }: CarouselSettings) => {
   const [slideIndex, setSlideIndex] = useState(0);
   const [autoPlay, setAutoPlay] = useState(autoPlayOn);
@@ -17,28 +19,23 @@ export const useCarousel = ({
   const interval = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const showNext = useCallback(() => {
-    setSlideIndex(
-      (prevIndex) => (prevIndex + slidesPerView) % totalCarouselItems
-    );
-  }, [slidesPerView, totalCarouselItems]);
+    setSlideIndex((prevIndex) => (prevIndex + shiftBy) % totalCarouselItems);
+  }, [shiftBy, totalCarouselItems]);
 
   const showPrev = () => {
-    setSlideIndex((prevIndex) =>
-      prevIndex === 0
-        ? totalCarouselItems - slidesPerView
-        : prevIndex - slidesPerView
-    );
+    if (slideIndex === 0) return;
+    setSlideIndex((prevIndex) => prevIndex - shiftBy);
   };
 
   useEffect(() => {
     if (!autoPlay) return;
 
-    interval.current = setInterval(showNext, 5000);
+    interval.current = setInterval(showNext, autoplayInterval);
 
     return () => {
       interval.current && clearInterval(interval.current);
     };
-  }, [autoPlay, slideIndex, totalCarouselItems, showNext]);
+  }, [autoPlay, autoplayInterval, showNext]);
 
   const stopAutoPlay = () => {
     setAutoPlay(false);

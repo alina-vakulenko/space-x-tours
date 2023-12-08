@@ -1,5 +1,9 @@
 import { styled, css } from "styled-components";
 
+export const Container = styled.div`
+  padding-inline: 79px 80px;
+`;
+
 export const FlexRow = styled.div`
   display: flex;
   flex-direction: row;
@@ -25,13 +29,10 @@ export const ArrowButton = styled(Button)`
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 44px;
+  height: 44px;
   padding: 10px;
   background-color: #ececec;
-
-  svg > * {
-    padding: 5px 0px;
-    margin: 0 auto;
-  }
 `;
 
 export const PositionedElement = styled.div<{
@@ -60,17 +61,15 @@ export const PositionedElement = styled.div<{
 `;
 
 export const styledIconButton = css`
+  border: none;
+  background-color: hsl(0, 0%, 93%);
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: hsl(0, 0%, 93%);
-`;
-
-export const IconButton = styled(Button)<{ $size?: "string" }>`
-  width: ${(props) => (props.$size ? props.$size : "53px")};
-  height: ${(props) => (props.$size ? props.$size : "53px")};
-  ${styledIconButton}
-  transition: all 0.2s ease-in-out;
+  width: 53px;
+  height: 53px;
+  cursor: pointer;
+  transition: all 150ms ease-in-out;
 `;
 
 export const FullWidthImage = styled.img`
@@ -89,4 +88,11 @@ export const BannerTitle = styled.h2<{ $fontSize?: string }>`
   font-weight: 800;
   text-transform: uppercase;
   word-wrap: no-wrap;
+`;
+
+export const CarouselSlidesWrapper = styled(FlexRow)<{ $gap?: string }>`
+  width: 100%;
+  height: 100%;
+  gap: ${(props) => (props.$gap ? props.$gap : 0)};
+  overflow: hidden;
 `;

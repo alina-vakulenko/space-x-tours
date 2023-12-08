@@ -1,11 +1,12 @@
 import styled from "styled-components";
-import { FlexRow, IconButton } from "../../globalStyles";
+import { FlexRow, styledIconButton } from "../../globalStyles";
 import PrimaryButton from "../buttons/PrimaryButton";
 
 const Card = styled.article`
   display: flex;
   flex-direction: column;
-  width: 411px;
+  max-width: 411px;
+  min-width: 411px;
   height: 572px;
   border: 1px solid var(--color-border);
 `;
@@ -28,6 +29,10 @@ const CardActions = styled(FlexRow)`
   gap: 16px;
 `;
 
+const Button = styled.button`
+  ${styledIconButton}
+`;
+
 const TourCardSkeleton = () => {
   return (
     <Card>
@@ -35,7 +40,7 @@ const TourCardSkeleton = () => {
       <CardContent>
         <CardActions>
           <PrimaryButton variant="stretched">buy</PrimaryButton>
-          <IconButton></IconButton>
+          <Button></Button>
         </CardActions>
       </CardContent>
     </Card>

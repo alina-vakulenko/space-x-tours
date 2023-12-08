@@ -6,11 +6,11 @@ const StyledButton = styled(Button)<{
   $variant?: "default" | "stretched";
 }>`
   width: ${(props) => (props.$variant === "stretched" ? "100%" : "163px")};
+  flex: 1 0 0;
   padding: 12px 0;
   background-color: hsl(209, 100%, 91%);
   text-transform: uppercase;
   transition: transform 0.2s ease-in-out;
-
   &:active {
     transform: scale(0.95);
   }

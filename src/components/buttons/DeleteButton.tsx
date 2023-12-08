@@ -1,11 +1,10 @@
 import styled from "styled-components";
-import { IconButton } from "../../globalStyles";
 import sprite from "../../assets/sprite.svg";
+import { styledIconButton } from "../../globalStyles";
 
-const StyledButton = styled(IconButton)`
-  transition: all 0.2s ease-in-out;
+const StyledButton = styled.button`
+  ${styledIconButton}
 
-  &:active,
   &:hover,
   &:focus-visible {
     background-color: var(--color-accent);
@@ -19,7 +18,7 @@ type DeleteButtonProps = {
 const DeleteButton = ({ onClick }: DeleteButtonProps) => {
   return (
     <StyledButton onClick={onClick}>
-      <svg aria-hidden width={24} height={24}>
+      <svg aria-hidden width={19} height={21}>
         <use href={sprite + "#delete"} />
       </svg>
     </StyledButton>

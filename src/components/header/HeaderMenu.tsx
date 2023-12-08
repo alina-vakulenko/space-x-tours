@@ -9,15 +9,13 @@ const HeaderSideMenu = styled(FlexRow)`
 `;
 
 const StyledNavlink = styled(NavLink)`
-  transition: all 0.2s ease-in-out;
   ${styledIconButton}
-  width:53px;
-  height: 53px;
 
   &.active,
   &:hover,
   &:focus-visible {
     background-color: var(--color-accent);
+
     svg {
       fill: var(--color-text-inverted);
     }
@@ -28,7 +26,7 @@ const HeaderMenu = () => {
   return (
     <HeaderSideMenu>
       <StyledNavlink to="favorites">
-        <svg aria-hidden width={24} height={24}>
+        <svg aria-hidden width={21} height={19}>
           <use href={sprite + "#heart"} />
         </svg>
       </StyledNavlink>

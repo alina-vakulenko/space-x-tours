@@ -3,12 +3,12 @@ import sprite from "../../assets/sprite.svg";
 import images from "../../assets/images";
 import {
   BannerTitle,
+  CarouselSlidesWrapper,
   FullWidthImage,
   PositionedElement,
 } from "../../globalStyles";
 import { useCarousel } from "../../hooks/useCarousel";
 import CarouselContainer from "../carousel/CarouselContainer";
-import CarouselSlidesWrapper from "../carousel/CarouselSlidesWrapper";
 import CarouselDotsPagination from "../carousel/CarouselDotsPagination";
 
 const LinkButton = styled.button`
