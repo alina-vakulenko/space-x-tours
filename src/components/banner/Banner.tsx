@@ -2,7 +2,6 @@ import styled from "styled-components";
 import sprite from "../../assets/sprite.svg";
 import images from "../../assets/images";
 import {
-  BannerTitle,
   CarouselSlidesWrapper,
   FullWidthImage,
   PositionedElement,
@@ -10,6 +9,8 @@ import {
 import { useCarousel } from "../../hooks/useCarousel";
 import CarouselContainer from "../carousel/CarouselContainer";
 import CarouselDotsPagination from "../carousel/CarouselDotsPagination";
+import BannerTextOvarlay from "./BannerTextOvarlay";
+import BannerImageOvarlay from "./BannerImageOvarlay";
 
 const LinkButton = styled.button`
   display: flex;
@@ -50,14 +51,6 @@ const BannerWrapper = styled.div`
   height: "740px";
 `;
 
-const ImageOverlay = styled.div`
-  position: absolute;
-  inset: 0;
-  opacity: 0.48;
-  background: #1e1e1e;
-  z-index: 2;
-`;
-
 type BannerProps = {
   handleScrollBottom: () => void;
 };
@@ -86,14 +79,8 @@ const Banner = ({ handleScrollBottom }: BannerProps) => {
           ))}
         </CarouselSlidesWrapper>
 
-        <ImageOverlay />
-
-        <PositionedElement $left="167px" $top="239px" $zIndex={3}>
-          <PositionedElement>
-            <BannerTitle>The space is waiting for</BannerTitle>
-          </PositionedElement>
-          <BannerTitle $fontSize="310px">you</BannerTitle>
-        </PositionedElement>
+        <BannerImageOvarlay />
+        <BannerTextOvarlay />
 
         <PositionedElement $top="413px" $left="640px" $zIndex={4}>
           <CarouselDotsPagination
