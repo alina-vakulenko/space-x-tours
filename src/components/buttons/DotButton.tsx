@@ -31,11 +31,11 @@ const DotButton = ({ active, onClick, color }: DotButtonProps) => {
     <StyledButton onClick={onClick} $color={color}>
       {active ? (
         <svg aria-hidden width={24} height={24}>
-          <use href={sprite + "#circle-with-dot"} />
+          <use xlinkHref={sprite + "#circle-with-dot"} />
         </svg>
       ) : (
         <svg aria-hidden width={24} height={24}>
-          <use href={sprite + "#circle"} />
+          <use xlinkHref={sprite + "#circle"} />
         </svg>
       )}
     </StyledButton>

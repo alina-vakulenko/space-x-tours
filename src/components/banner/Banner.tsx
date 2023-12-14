@@ -95,7 +95,7 @@ const Banner = ({ handleScrollBottom }: BannerProps) => {
           <LinkButton onClick={handleScrollBottom}>
             Explore tours
             <svg aria-hidden width={40} height={40}>
-              <use href={sprite + "#arrow-down"} />
+              <use xlinkHref={sprite + "#arrow-down"} />
             </svg>
           </LinkButton>
         </PositionedElement>

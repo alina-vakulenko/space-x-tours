@@ -10,7 +10,7 @@ const BackButton = ({ onClick, disabled = false }: BackButtonProps) => {
   return (
     <ArrowButton onClick={onClick} disabled={disabled}>
       <svg aria-hidden width={10} height={16}>
-        <use href={sprite + "#arrow"} />
+        <use xlinkHref={sprite + "#arrow"} />
       </svg>
     </ArrowButton>
   );
