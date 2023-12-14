@@ -17,7 +17,7 @@ const ForwardButton = ({ onClick, disabled = false }: ForwardButtonProps) => {
   return (
     <ArrowButtonRight onClick={onClick} disabled={disabled}>
       <svg aria-hidden width={10} height={16}>
-        <use xlinkHref={sprite + "#arrow"} />
+        <use href={sprite + "#arrow"} />
       </svg>
     </ArrowButtonRight>
   );

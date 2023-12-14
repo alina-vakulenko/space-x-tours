@@ -129,7 +129,7 @@ const TourCard = ({ card, actions, offset }: TourCardProps) => {
               onClick={() => setFavTours([...favTours, card])}
             >
               <svg aria-hidden width={21} height={19}>
-                <use xlinkHref={sprite + "#heart"} />
+                <use href={sprite + "#heart"} />
               </svg>
             </StyledButton>
           ) : null}

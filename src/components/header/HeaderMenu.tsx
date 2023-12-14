@@ -27,7 +27,7 @@ const HeaderMenu = () => {
     <HeaderSideMenu>
       <StyledNavlink to="favorites">
         <svg aria-hidden width={21} height={19}>
-          <use xlinkHref={sprite + "#heart"} />
+          <use href={sprite + "#heart"} />
         </svg>
       </StyledNavlink>
       <PrimaryButton>sign in</PrimaryButton>

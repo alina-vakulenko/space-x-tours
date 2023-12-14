@@ -19,7 +19,7 @@ const DeleteButton = ({ onClick }: DeleteButtonProps) => {
   return (
     <StyledButton onClick={onClick}>
       <svg aria-hidden width={19} height={21}>
-        <use xlinkHref={sprite + "#delete"} />
+        <use href={sprite + "#delete"} />
       </svg>
     </StyledButton>
   );
