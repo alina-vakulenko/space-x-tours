@@ -23,6 +23,7 @@ const Section = styled.section`
 
 const SectionHeader = styled(FlexRow)`
   justify-content: space-between;
+  gap: 16px;
   margin-bottom: 40px;
 `;
 
@@ -30,6 +31,14 @@ const CarouselTitle = styled.h1`
   font-size: 32px;
   font-weight: 800;
   text-transform: uppercase;
+  white-space: nowrap;
+
+  @media (max-width: 740px) {
+    font-size: 24px;
+  }
+  @media (max-width: 500px) {
+    font-size: 16px;
+  }
 `;
 
 const TourCardsCarousel = () => {

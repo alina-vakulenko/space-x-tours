@@ -2,6 +2,7 @@ import styled from "styled-components";
 import images from "../../assets/images";
 import ArrowDownIcon from "../../assets/svg/arrow-down.svg?react";
 import {
+  BannerTitle,
   CarouselSlidesWrapper,
   FullWidthImage,
   PositionedElement,
@@ -9,7 +10,6 @@ import {
 import { useCarousel } from "../../hooks/useCarousel";
 import CarouselContainer from "../carousel/CarouselContainer";
 import CarouselDotsPagination from "../carousel/CarouselDotsPagination";
-import BannerTextOvarlay from "./BannerTextOvarlay";
 import BannerImageOvarlay from "./BannerImageOvarlay";
 
 const LinkButton = styled.button`
@@ -35,6 +35,10 @@ const LinkButton = styled.button`
       transform: translateY(6px);
     }
   }
+
+  @media (max-width: 740px) {
+    font-size: 1rem;
+  }
 `;
 
 const CarouselSlide = styled(FullWidthImage)<{ $offsetIndex: number }>`
@@ -47,8 +51,14 @@ const CarouselSlide = styled(FullWidthImage)<{ $offsetIndex: number }>`
 
 const BannerWrapper = styled.div`
   max-width: inherit;
-  width: "100%";
-  height: "740px";
+  width: 100%;
+  aspect-ratio: 72 : 37;
+`;
+
+const BannerTextBlock = styled(PositionedElement)`
+  width: 77.92%;
+  aspect-ratio: 187 : 62;
+  text-align:center;
 `;
 
 type BannerProps = {
@@ -80,18 +90,25 @@ const Banner = ({ handleScrollBottom }: BannerProps) => {
         </CarouselSlidesWrapper>
 
         <BannerImageOvarlay />
-        <BannerTextOvarlay />
 
-        <PositionedElement $top="413px" $left="640px" $zIndex={4}>
-          <CarouselDotsPagination
-            slidesCount={images.length}
-            activeSlideIndex={slideIndex}
-            onClick={selectSlide}
-            color="var(--color-text-inverted)"
-          />
-        </PositionedElement>
+        <BannerTextBlock $left="11.6%" $top="32.35%" $zIndex={3}>
+          <PositionedElement>
+            <BannerTitle $fontSize="3.33vw">
+              The space is waiting for
+            </BannerTitle>
+          </PositionedElement>
+          <BannerTitle $fontSize="21.53vw">you</BannerTitle>
+          <PositionedElement $centerY $left="42.16%" $zIndex={4}>
+            <CarouselDotsPagination
+              slidesCount={images.length}
+              activeSlideIndex={slideIndex}
+              onClick={selectSlide}
+              color="var(--color-text-inverted)"
+            />
+          </PositionedElement>
+        </BannerTextBlock>
 
-        <PositionedElement $left="605px" $bottom="33px" $zIndex={4}>
+        <PositionedElement $centerX $bottom="4.46%" $zIndex={4}>
           <LinkButton onClick={handleScrollBottom}>
             Explore tours
             <ArrowDownIcon aria-hidden width={40} height={40} />

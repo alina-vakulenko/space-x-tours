@@ -6,6 +6,7 @@ const RootContainer = styled.div`
   max-width: 1440px;
   margin: 0 auto;
   overflow: hidden;
+  position: relative;
 `;
 
 const Root = () => {

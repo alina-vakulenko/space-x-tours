@@ -37,6 +37,7 @@ export const ArrowButton = styled(Button)`
   transition: all 250ms ease-in-out;
   svg {
     stroke: var(--color-text-main);
+    padding-block: 5px;
   }
   &:hover svg {
     transform: scale(1.1);
@@ -92,10 +93,9 @@ export const FullWidthImage = styled.img`
 export const BannerTitle = styled.h2<{ $fontSize?: string }>`
   color: var(--color-text-inverted);
   font-size: ${(props) => props.$fontSize || "48px"};
-  text-align: center;
   font-weight: 800;
   text-transform: uppercase;
-  word-wrap: no-wrap;
+  white-space: nowrap;
 `;
 
 export const CarouselSlidesWrapper = styled(FlexRow)<{ $gap?: string }>`

@@ -4,8 +4,8 @@ import CircleWithDotIcon from "../../assets/svg/circle-with-dot.svg?react";
 import CircleIcon from "../../assets/svg/circle.svg?react";
 
 const StyledButton = styled(Button)<{ $color: string }>`
-  width: 24px;
-  height: 24px;
+  width: 1.67vw;
+  aspect-ratio: 1:1;
   border-radius: 50%;
   transition: scale 100ms ease-in-out;
   color: ${(props) => props.$color};
@@ -32,19 +32,11 @@ const DotButton = ({ active, onClick, color }: DotButtonProps) => {
       {active ? (
         <CircleWithDotIcon
           aria-hidden
-          width={24}
-          height={24}
           stroke="currentColor"
           fill="currentColor"
         />
       ) : (
-        <CircleIcon
-          aria-hidden
-          width={24}
-          height={24}
-          stroke="currentColor"
-          fill="transparent"
-        />
+        <CircleIcon stroke="currentColor" fill="transparent" />
       )}
     </StyledButton>
   );

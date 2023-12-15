@@ -10,6 +10,7 @@ const StyledHeader = styled(FlexRow)`
   height: 80px;
   padding-inline: 80px;
   justify-content: space-between;
+  gap: 16px;
   background-color: hsla(0, 0%, 12%, 0.48);
   z-index: 999;
 `;
