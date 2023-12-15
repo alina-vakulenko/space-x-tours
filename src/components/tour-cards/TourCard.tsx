@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
-import sprite from "../../assets/sprite.svg";
+import HeartIcon from "../../assets/svg/heart.svg?react";
 import { Tour, favourites } from "../../state";
 import { FlexRow, styledIconButton } from "../../globalStyles";
 import PrimaryButton from "../buttons/PrimaryButton";
@@ -72,7 +72,7 @@ const StyledButton = styled.button<{ $isActive: boolean }>`
   ${styledIconButton}
   background-color: ${(props) =>
     props.$isActive ? "var(--color-accent)" : "current"};
-  svg {
+  svg > * {
     fill: ${(props) =>
       props.$isActive ? "var(--color-text-inverted)" : "current"};
   }
@@ -85,7 +85,7 @@ const StyledButton = styled.button<{ $isActive: boolean }>`
   &:hover,
   &:focus-visible {
     background-color: var(--color-accent);
-    svg {
+    svg > * {
       fill: var(--color-text-inverted);
     }
   }
@@ -128,9 +128,7 @@ const TourCard = ({ card, actions, offset }: TourCardProps) => {
               $isActive={isFavorite}
               onClick={() => setFavTours([...favTours, card])}
             >
-              <svg aria-hidden width={21} height={19}>
-                <use href={sprite + "#heart"} />
-              </svg>
+              <HeartIcon aria-hidden width={24} height={24} />
             </StyledButton>
           ) : null}
           {actions.includes("delete") ? (

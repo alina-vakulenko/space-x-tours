@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Button } from "../../globalStyles";
-import sprite from "../../assets/sprite.svg";
+import CircleWithDotIcon from "../../assets/svg/circle-with-dot.svg?react";
+import CircleIcon from "../../assets/svg/circle.svg?react";
 
 const StyledButton = styled(Button)<{ $color: string }>`
   width: 24px;
@@ -14,9 +15,8 @@ const StyledButton = styled(Button)<{ $color: string }>`
     scale: 1.2;
   }
 
-  svg > * {
-    stroke: currentColor;
-    fill: currentColor;
+  svg circle:nth-child(2) {
+    fill: transparent;
   }
 `;
 
@@ -30,13 +30,21 @@ const DotButton = ({ active, onClick, color }: DotButtonProps) => {
   return (
     <StyledButton onClick={onClick} $color={color}>
       {active ? (
-        <svg aria-hidden width={24} height={24}>
-          <use href={sprite + "#circle-with-dot"} />
-        </svg>
+        <CircleWithDotIcon
+          aria-hidden
+          width={24}
+          height={24}
+          stroke="currentColor"
+          fill="currentColor"
+        />
       ) : (
-        <svg aria-hidden width={24} height={24}>
-          <use href={sprite + "#circle"} />
-        </svg>
+        <CircleIcon
+          aria-hidden
+          width={24}
+          height={24}
+          stroke="currentColor"
+          fill="transparent"
+        />
       )}
     </StyledButton>
   );

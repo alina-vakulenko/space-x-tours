@@ -1,16 +1,10 @@
 import { NavLink } from "react-router-dom";
-import { styled } from "styled-components";
-import logo from "../../assets/logo.svg";
-
-const Logo = styled.img`
-  width: 229px;
-  height: 42px;
-`;
+import Logo from "../../assets/svg/logo.svg?react";
 
 const HeaderLogo = () => {
   return (
     <NavLink to="/">
-      <Logo src={logo} alt="SpaceX Logo" />
+      <Logo width={229} height={42} />
     </NavLink>
   );
 };

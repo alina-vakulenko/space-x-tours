@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import sprite from "../../assets/sprite.svg";
 import images from "../../assets/images";
+import ArrowDownIcon from "../../assets/svg/arrow-down.svg?react";
 import {
   CarouselSlidesWrapper,
   FullWidthImage,
@@ -46,7 +46,7 @@ const CarouselSlide = styled(FullWidthImage)<{ $offsetIndex: number }>`
 `;
 
 const BannerWrapper = styled.div`
-  maxwidth: inherit;
+  max-width: inherit;
   width: "100%";
   height: "740px";
 `;
@@ -94,9 +94,7 @@ const Banner = ({ handleScrollBottom }: BannerProps) => {
         <PositionedElement $left="605px" $bottom="33px" $zIndex={4}>
           <LinkButton onClick={handleScrollBottom}>
             Explore tours
-            <svg aria-hidden width={40} height={40}>
-              <use href={sprite + "#arrow-down"} />
-            </svg>
+            <ArrowDownIcon aria-hidden width={40} height={40} />
           </LinkButton>
         </PositionedElement>
       </CarouselContainer>

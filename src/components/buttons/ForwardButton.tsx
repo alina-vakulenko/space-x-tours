@@ -1,10 +1,13 @@
-import { ArrowButton } from "../../globalStyles";
-import sprite from "../../assets/sprite.svg";
 import styled from "styled-components";
+import { ArrowButton } from "../../globalStyles";
+import ArrowLeftIcon from "../../assets/svg/arrow-left.svg?react";
 
 const ArrowButtonRight = styled(ArrowButton)`
   svg {
     transform: rotate(180deg);
+  }
+  &:hover svg {
+    transform: rotate(180deg) scale(1.1);
   }
 `;
 
@@ -16,9 +19,7 @@ type ForwardButtonProps = {
 const ForwardButton = ({ onClick, disabled = false }: ForwardButtonProps) => {
   return (
     <ArrowButtonRight onClick={onClick} disabled={disabled}>
-      <svg aria-hidden width={10} height={16}>
-        <use href={sprite + "#arrow"} />
-      </svg>
+      <ArrowLeftIcon aria-hidden width={24} height={24} />
     </ArrowButtonRight>
   );
 };

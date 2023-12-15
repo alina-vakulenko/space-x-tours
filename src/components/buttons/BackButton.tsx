@@ -1,5 +1,5 @@
 import { ArrowButton } from "../../globalStyles";
-import sprite from "../../assets/sprite.svg";
+import ArrowLeftIcon from "../../assets/svg/arrow-left.svg?react";
 
 type BackButtonProps = {
   onClick: () => void;
@@ -9,9 +9,7 @@ type BackButtonProps = {
 const BackButton = ({ onClick, disabled = false }: BackButtonProps) => {
   return (
     <ArrowButton onClick={onClick} disabled={disabled}>
-      <svg aria-hidden width={10} height={16}>
-        <use href={sprite + "#arrow"} />
-      </svg>
+      <ArrowLeftIcon aria-hidden width={24} height={24} />
     </ArrowButton>
   );
 };

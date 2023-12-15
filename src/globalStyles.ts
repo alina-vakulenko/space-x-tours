@@ -1,7 +1,8 @@
 import { styled, css } from "styled-components";
 
 export const Container = styled.div`
-  padding-inline: 79px 80px;
+  padding-inline: 80px;
+  height: 800px;
 `;
 
 export const FlexRow = styled.div`
@@ -33,6 +34,13 @@ export const ArrowButton = styled(Button)`
   height: 44px;
   padding: 10px;
   background-color: #ececec;
+  transition: all 250ms ease-in-out;
+  svg {
+    stroke: var(--color-text-main);
+  }
+  &:hover svg {
+    transform: scale(1.1);
+  }
 `;
 
 export const PositionedElement = styled.div<{

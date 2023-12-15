@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import HeartIcon from "../../assets/svg/heart.svg?react";
 import { FlexRow, styledIconButton } from "../../globalStyles";
 import PrimaryButton from "../buttons/PrimaryButton";
-import sprite from "../../assets/sprite.svg";
 
 const HeaderSideMenu = styled(FlexRow)`
   gap: 12px;
@@ -15,8 +15,7 @@ const StyledNavlink = styled(NavLink)`
   &:hover,
   &:focus-visible {
     background-color: var(--color-accent);
-
-    svg {
+    svg > * {
       fill: var(--color-text-inverted);
     }
   }
@@ -26,9 +25,7 @@ const HeaderMenu = () => {
   return (
     <HeaderSideMenu>
       <StyledNavlink to="favorites">
-        <svg aria-hidden width={21} height={19}>
-          <use href={sprite + "#heart"} />
-        </svg>
+        <HeartIcon aria-hidden width={24} height={24} />
       </StyledNavlink>
       <PrimaryButton>sign in</PrimaryButton>
     </HeaderSideMenu>
